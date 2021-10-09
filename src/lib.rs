@@ -11,7 +11,12 @@ pub fn add_profile() {
 }
 
 pub fn list_profiles() {
-    println!("list_profiles");
+    let profiles = read_profiles();
+    for item in profiles.as_table().iter() {
+        for (k, _) in item.iter() {
+            println!("\t{}", k);
+        }
+    }
 }
 
 pub fn run_default() {
