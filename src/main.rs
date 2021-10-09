@@ -21,8 +21,8 @@ fn main() {
         run_default();
     }
 
-    if let Some(_) = args.subcommand_matches("add") {
-        add_profile();
+    if let Some(arg) = args.subcommand_matches("add") {
+        add_profile(arg.value_of("name").unwrap(), arg.value_of("path").unwrap());
     } else if let Some(_) = args.subcommand_matches("list") {
         list_profiles();
     } else if let Some(_) = args.subcommand_matches("init") {

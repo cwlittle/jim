@@ -1,13 +1,20 @@
 use std::fs;
 use toml::Value;
 use std::process::{Command, Stdio};
+use std::fs::File;
+use std::io::Write;
 
 pub fn init() {
     println!("init");
 } 
 
-pub fn add_profile() {
-    println!("add_profile");
+pub fn add_profile(name: &str, path: &str) {
+    println!("hit here");
+    let toml_string = fs::read_to_string("jim.toml").unwrap();
+    let profile_string = format!("{} = \"{}\"", name, path);
+    let new_toml = toml_string + &profile_string;
+    let mut out_file = File::create("jim.toml").unwrap();
+    write!(out_file, "{}", &new_toml).unwrap();
 }
 
 pub fn list_profiles() {
