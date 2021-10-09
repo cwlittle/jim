@@ -3,9 +3,9 @@ use clap::{crate_version, App, Arg, SubCommand};
 use jim::*;
 
 fn main() {
-    let args = App::new("svim")
+    let args = App::new("jim")
         .author("cwlittle, <cwlittle@utexas.edu>")
-        .about("Profile based configuration wrapper for neovim")
+        .about("Named configuration management for vim")
         .version(concat!("version: ", crate_version!()))
         .subcommand(
             SubCommand::with_name("add")
