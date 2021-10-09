@@ -1,9 +1,9 @@
+use std::env;
 use std::fs;
-use toml::Value;
-use std::process::{Command, Stdio};
 use std::fs::File;
 use std::io::Write;
-use std::env;
+use std::process::{Command, Stdio};
+use toml::Value;
 
 pub fn init(default_path: &str) {
     let current_exe_path = env::current_exe().unwrap();
@@ -15,7 +15,7 @@ pub fn init(default_path: &str) {
     let mut out_file = File::create(toml_path).unwrap();
     let default = format!("[profiles]\ndefault = \"{}\"", default_path);
     write!(out_file, "{}", default).unwrap();
-} 
+}
 
 pub fn add_profile(name: &str, path: &str) {
     let current_exe_path = env::current_exe().unwrap();
