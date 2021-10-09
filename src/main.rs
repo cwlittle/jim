@@ -42,8 +42,6 @@ fn main() {
             }
             _ => {}
         };
-        //basically all args that are not subcommands will filter throuhg this
-        //need to return result rather than panic
     } else if let Some(arg) = args.subcommand_matches("add") {
         let name = arg.value_of("name").unwrap();
         let path = arg.value_of("path").unwrap();
