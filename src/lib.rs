@@ -37,11 +37,11 @@ pub fn list_profiles() {
     }
 }
 
-pub fn run_default() {
+pub fn run_profile(profile: &str) {
     let config = read_profiles();
-    let default_path: String = match config.get("default") {
+    let default_path: String = match config.get(profile) {
         Some(path) => toml::to_string(path).unwrap(),
-        None => panic!("No default profile specified"),
+        None => panic!("Profile does not exist"),
     };
     run_vim(default_path.replace("\"", ""))
 }
