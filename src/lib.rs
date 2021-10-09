@@ -3,18 +3,28 @@ use toml::Value;
 use std::process::{Command, Stdio};
 use std::fs::File;
 use std::io::Write;
+use std::env;
 
 pub fn init(default_path: &str) {
-    let mut out_file = File::create("jim.toml").unwrap();
+    let current_exe_path = env::current_exe().unwrap();
+    let resource_path = current_exe_path.parent().unwrap().join("resources");
+    //probably should check if this directory exists first or else it will nuke everthing or panic
+    println!("{:?}", resource_path);
+    fs::create_dir(resource_path.clone()).unwrap();
+    let toml_path = resource_path.join("jim.toml");
+    let mut out_file = File::create(toml_path).unwrap();
     let default = format!("[profiles]\ndefault = \"{}\"", default_path);
     write!(out_file, "{}", default).unwrap();
 } 
 
 pub fn add_profile(name: &str, path: &str) {
-    let toml_string = fs::read_to_string("jim.toml").unwrap();
+    let current_exe_path = env::current_exe().unwrap();
+    let resource_path = current_exe_path.parent().unwrap().join("resources");
+    let toml_path = resource_path.join("jim.toml");
+    let toml_string = fs::read_to_string(toml_path.clone()).unwrap();
     let profile_string = format!("{} = \"{}\"", name, path);
     let new_toml = toml_string + &profile_string;
-    let mut out_file = File::create("jim.toml").unwrap();
+    let mut out_file = File::create(toml_path).unwrap();
     write!(out_file, "{}", &new_toml).unwrap();
 }
 
@@ -37,13 +47,15 @@ pub fn run_default() {
 }
 
 fn read_profiles() -> Value {
-    let toml_string = fs::read_to_string("jim.toml").unwrap();
+    let current_exe_path = env::current_exe().unwrap();
+    let resource_path = current_exe_path.parent().unwrap().join("resources");
+    let toml_path = resource_path.join("jim.toml");
+    let toml_string = fs::read_to_string(toml_path).unwrap();
     let config = &toml_string.parse::<Value>().unwrap();
     match config.get("profiles") {
         Some(profiles) => profiles.to_owned(),
         None => panic!("What the fuck have you done to the toml?"),
     }
-
 }
 
 fn run_vim(profile_path: String) {
