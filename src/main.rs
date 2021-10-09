@@ -17,6 +17,10 @@ fn main() {
         .arg(Arg::with_name("PROFILE").index(1).required(false))
         .get_matches();
 
+    if std::env::args().len() == 1 {
+        run_default();
+    }
+
     if let Some(_) = args.subcommand_matches("add") {
         add_profile();
     } else if let Some(_) = args.subcommand_matches("list") {
@@ -24,7 +28,8 @@ fn main() {
     } else if let Some(_) = args.subcommand_matches("init") {
         init();
     } else {
-        run_default();
+        //show help
+        println!("argument invalid. show help");
     }
 }
 
