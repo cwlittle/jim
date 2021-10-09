@@ -11,3 +11,4 @@ edition = "2018"
 [dependencies]
 clap = "2.33.0"
 toml = "0.5.3"
+thiserror = "1.0.30"
