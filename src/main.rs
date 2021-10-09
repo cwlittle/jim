@@ -8,14 +8,17 @@ fn main() {
         .about("Named configuration management for vim")
         .version(concat!("version: ", crate_version!()))
         .subcommand(
-            SubCommand::with_name("init").arg(Arg::with_name("default_path").required(true)),
+            SubCommand::with_name("init")
+                .about("Initializes jim and adds default profile")
+                .arg(Arg::with_name("default_path").required(true)),
         )
         .subcommand(
             SubCommand::with_name("add")
+                .about("Adds a configuration profile to jim")
                 .arg(Arg::with_name("name").required(true))
                 .arg(Arg::with_name("path").required(true)),
         )
-        .subcommand(SubCommand::with_name("list"))
+        .subcommand(SubCommand::with_name("list").about("Lists all available profiles for use"))
         .arg(
             Arg::with_name("PROFILE")
                 .index(1)
