@@ -2,6 +2,9 @@ use std::fs;
 use toml::Value;
 use std::process::{Command, Stdio};
 
+pub fn init() {
+    println!("init");
+} 
 
 pub fn add_profile() {
     println!("add_profile");

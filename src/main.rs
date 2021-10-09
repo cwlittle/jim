@@ -7,6 +7,7 @@ fn main() {
         .author("cwlittle, <cwlittle@utexas.edu>")
         .about("Named configuration management for vim")
         .version(concat!("version: ", crate_version!()))
+        .subcommand(SubCommand::with_name("init"))
         .subcommand(
             SubCommand::with_name("add")
                 .arg(Arg::with_name("name").required(true))
@@ -20,6 +21,8 @@ fn main() {
         add_profile();
     } else if let Some(_) = args.subcommand_matches("list") {
         list_profiles();
+    } else if let Some(_) = args.subcommand_matches("init") {
+        init();
     } else {
         run_default();
     }
