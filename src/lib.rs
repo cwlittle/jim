@@ -22,7 +22,7 @@ pub fn add_profile(name: &str, path: &str) {
     let resource_path = current_exe_path.parent().unwrap().join("resources");
     let toml_path = resource_path.join("jim.toml");
     let toml_string = fs::read_to_string(toml_path.clone()).unwrap();
-    let profile_string = format!("{} = \"{}\"", name, path);
+    let profile_string = format!("\n{} = \"{}\"", name, path);
     let new_toml = toml_string + &profile_string;
     let mut out_file = File::create(toml_path).unwrap();
     write!(out_file, "{}", &new_toml).unwrap();
