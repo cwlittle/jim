@@ -7,7 +7,9 @@ fn main() {
         .author("cwlittle, <cwlittle@utexas.edu>")
         .about("Named configuration management for vim")
         .version(concat!("version: ", crate_version!()))
-        .subcommand(SubCommand::with_name("init"))
+        .subcommand(SubCommand::with_name("init")
+            .arg(Arg::with_name("default_path").required(true))
+        )
         .subcommand(
             SubCommand::with_name("add")
                 .arg(Arg::with_name("name").required(true))
@@ -19,14 +21,12 @@ fn main() {
 
     if std::env::args().len() == 1 {
         run_default();
-    }
-
-    if let Some(arg) = args.subcommand_matches("add") {
+    } else if let Some(arg) = args.subcommand_matches("add") {
         add_profile(arg.value_of("name").unwrap(), arg.value_of("path").unwrap());
     } else if let Some(_) = args.subcommand_matches("list") {
         list_profiles();
-    } else if let Some(_) = args.subcommand_matches("init") {
-        init();
+    } else if let Some(arg) = args.subcommand_matches("init") {
+        init(arg.value_of("default_path").unwrap());
     } else {
         //show help
         println!("argument invalid. show help");
