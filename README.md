@@ -4,13 +4,13 @@ jim is a configuration profile management tool for neovim
 
 ## Usage
 
-###To install:
+### To install:
 
 ```
 cargo install jim
 ```
 
-###Basic usage:
+### Basic usage:
 
 First configure the default configuration path for jim:
 ```
